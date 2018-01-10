@@ -42,8 +42,8 @@ def make_chains(text_string):
 
     chains = {}
 
-    text = open_and_read_file(input_path)
-    text_words = text.split()
+    text_string = open_and_read_file(input_path)
+    text_words = text_string.split()
 
     for index in range(len(text_words) - 2):
 
@@ -62,7 +62,28 @@ def make_chains(text_string):
 def make_text(chains):
     """Return text from chains."""
 
+    chains = make_chains(input_text)
+
     words = []
+
+    random_bigram = choice(chains.keys())
+
+    for word in random_bigram:
+        words.append(word)
+
+    while random_bigram in chains:
+        following_word = choice(chains[random_bigram])
+        words.append(following_word)
+
+        random_bigram = (random_bigram[1], following_word)
+
+        # for bigram in chains:
+
+    # for every tuple-key in chains, we want to unpack the tuple
+    # after we unpack the tuple, we want to cat a random item in its value-list
+
+    # whatever key-value we spit out, we take key at 1 and the value word
+        # check to see if those two items as a tuple are in the dict as a key
 
     # your code goes here
 
