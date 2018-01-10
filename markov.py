@@ -9,9 +9,10 @@ def open_and_read_file(file_path):
     the file's contents as one string of text.
     """
 
-    opened_file = open(file_path)
+    with open(file_path) as opened_file:
+        read_file = opened_file.read()
 
-    return opened_file.read()
+    return read_file
 
 
 def make_chains(text_string):
@@ -42,12 +43,12 @@ def make_chains(text_string):
     chains = {}
 
     text = open_and_read_file(input_path)
-    text = text.split()
+    text_words = text.split()
 
-    for index in range(len(text) - 2):
+    for index in range(len(text_words) - 2):
 
-        bigram = tuple([text[index], text[index + 1]])
-        following_word = text[index + 2]
+        bigram = tuple([text_words[index], text_words[index + 1]])
+        following_word = text_words[index + 2]
 
         if bigram in chains:  # if key in dict, append to existing value
             chains[bigram].append(following_word)
