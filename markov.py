@@ -1,4 +1,6 @@
 """Generate Markov text from text files."""
+import sys
+
 from random import choice
 
 
@@ -45,7 +47,7 @@ def make_chains(text_string):
     text_string = open_and_read_file(input_path)
     text_words = text_string.split()
 
-    for index in range(len(text_words) - 2):
+    """for index in range(len(text_words) - 2):
 
         bigram = tuple([text_words[index], text_words[index + 1]])
         following_word = text_words[index + 2]
@@ -55,6 +57,31 @@ def make_chains(text_string):
 
         else:
             chains[bigram] = [following_word]  # init value of key as a list
+"""
+
+    ngram_type = int(raw_input("What kind of ngram do you want to use? > "))
+
+    for index in range(len(text_words) - ngram_type):
+        ngrams = []
+
+        for num in range(ngram_type):
+            ngrams.append(text_words[num])
+
+        ngram_key = tuple(ngrams)
+
+        # while index < ngram_type:
+        #     ngrams.append(text_words[index])
+        #     ngram = tuple(ngrams)
+        following_word = text_words[ngram_type]
+
+        if ngram_key in chains:
+            chains[ngram_key].append(following_word)
+
+        else:
+            chains[ngram_key] = [following_word]
+
+    print "THIS IS OUR LIST OF NGRAMS:", ngrams
+    print "THIS IS OUR NGRAM:", ngram_key
 
     return chains
 
@@ -62,7 +89,7 @@ def make_chains(text_string):
 def make_text(chains):
     """Return text from chains."""
 
-    chains = make_chains(input_text)
+    #chains = make_chains(input_text)
 
     words = []
 
@@ -90,7 +117,7 @@ def make_text(chains):
     return " ".join(words)
 
 
-input_path = "green-eggs.txt"
+input_path = sys.argv[1]
 
 # Open the file and turn it into one long string
 input_text = open_and_read_file(input_path)
@@ -99,6 +126,6 @@ input_text = open_and_read_file(input_path)
 chains = make_chains(input_text)
 
 # Produce random text
-random_text = make_text(chains)
+# random_text = make_text(chains)
 
-print random_text
+print chains
