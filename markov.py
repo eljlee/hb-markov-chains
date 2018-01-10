@@ -41,7 +41,6 @@ def make_chains(text_string):
 
     chains = {}
 
-
     text = open_and_read_file(input_path)
     text = text.split()
 
@@ -50,11 +49,11 @@ def make_chains(text_string):
         bigram = tuple([text[index], text[index + 1]])
         following_word = text[index + 2]
 
-        if bigram in chains: # if key in dict, append to existing value
+        if bigram in chains:  # if key in dict, append to existing value
             chains[bigram].append(following_word)
 
         else:
-            chains[bigram] = [following_word] # init value of key as a list
+            chains[bigram] = [following_word]  # init value of key as a list
 
     return chains
 
