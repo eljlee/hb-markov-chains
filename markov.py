@@ -58,6 +58,9 @@ def make_chains(text_string):
         else:
             chains[bigram] = [following_word]  # init value of key as a list
 """
+    # ngram_type = what sort of ngram user decides
+    # ngrams = a list of the words to be tupled into a dict key
+    # ngram_key = the actual ngram in the dictionary
 
     ngram_type = int(raw_input("What kind of ngram do you want to use? > "))
 
@@ -68,11 +71,7 @@ def make_chains(text_string):
             ngrams.append(text_words[index + num])
 
         ngram_key = tuple(ngrams)
-
-        # while index < ngram_type:
-        #     ngrams.append(text_words[index])
-        #     ngram = tuple(ngrams)
-        following_word = text_words[ngram_type]
+        following_word = text_words[index + ngram_type]
 
         if ngram_key in chains:
             chains[ngram_key].append(following_word)
@@ -80,8 +79,8 @@ def make_chains(text_string):
         else:
             chains[ngram_key] = [following_word]
 
-    print "THIS IS OUR LIST OF NGRAMS:", ngrams
-    print "THIS IS OUR NGRAM:", ngram_key
+    # print "THIS IS OUR LIST OF NGRAMS:", ngrams
+    # print "THIS IS OUR NGRAM:", ngram_key
 
     return chains
 
@@ -93,6 +92,7 @@ def make_text(chains):
 
     words = []
 
+    """
     random_bigram = choice(chains.keys())
 
     for word in random_bigram:
@@ -104,15 +104,18 @@ def make_text(chains):
 
         random_bigram = (random_bigram[1], following_word)
 
-        # for bigram in chains:
+    """
 
-    # for every tuple-key in chains, we want to unpack the tuple
-    # after we unpack the tuple, we want to cat a random item in its value-list
+    random_ngram = choice(chains.keys())
 
-    # whatever key-value we spit out, we take key at 1 and the value word
-        # check to see if those two items as a tuple are in the dict as a key
+    for word in random_ngram:
+        words.append(word)
 
-    # your code goes here
+    while random_ngram in chains:
+        following_word = choice(chains[random_ngram])
+        words.append(following_word)
+
+        random_ngram = random_ngram[1:].append(following_word)
 
     return " ".join(words)
 
@@ -126,6 +129,6 @@ input_text = open_and_read_file(input_path)
 chains = make_chains(input_text)
 
 # Produce random text
-# random_text = make_text(chains)
+random_text = make_text(chains)
 
 print chains
