@@ -65,7 +65,7 @@ def make_chains(text_string):
         ngrams = []
 
         for num in range(ngram_type):
-            ngrams.append(text_words[num])
+            ngrams.append(text_words[index + num])
 
         ngram_key = tuple(ngrams)
 
